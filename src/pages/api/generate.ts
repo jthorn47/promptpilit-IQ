@@ -1,3 +1,4 @@
+// Trigger redeploy
 // src/pages/api/generate.ts
 
 import type { NextApiRequest, NextApiResponse } from 'next';
