@@ -1,14 +1,16 @@
-import { useState } from 'react';
+'use client';
 
-export default function PromptBuilder() {
+import React, { useState } from 'react';
+
+export default function PromptBuilderPage() {
   const [prompt, setPrompt] = useState('');
   const [response, setResponse] = useState('');
   const [loading, setLoading] = useState(false);
+  const [history, setHistory] = useState<{ prompt: string; response: string }[]>([]); // ✅ History state
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setResponse('');
 
     try {
       const res = await fetch('/api/generate', {
@@ -18,12 +20,21 @@ export default function PromptBuilder() {
       });
 
       const data = await res.json();
-      setResponse(data.result || 'No response received.');
+      const aiResponse = data.result || 'No response';
+
+      setResponse(aiResponse);
+
+      // ✅ Add to history
+      setHistory((prev) => [
+        { prompt, response: aiResponse },
+        ...prev,
+      ]);
     } catch (err) {
-      setResponse('Error: ' + err);
-    } finally {
-      setLoading(false);
+      console.error(err);
+      setResponse('Error generating response.');
     }
+
+    setLoading(false);
   };
 
   return (
@@ -39,7 +50,7 @@ export default function PromptBuilder() {
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
           />
-          <button type="submit" disabled={loading} style={{ marginTop: '1rem' }}>
+          <button type="submit" disabled={loading}>
             {loading ? 'Generating...' : 'Generate'}
           </button>
         </form>
@@ -50,7 +61,7 @@ export default function PromptBuilder() {
         <h2>AI Response</h2>
         <div
           style={{
-            background: '#f9f9f9',
+            background: '#f0f9ff',
             border: '1px solid #ccc',
             padding: '1rem',
             minHeight: '300px',
