@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://easelearn.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Block access to sensitive areas only
+Disallow: /admin/
+Disallow: /api/auth/
+Disallow: /api/private/
+Disallow: /testing/
+
+# Explicitly allow all public pages and content
+Allow: /
+Allow: /blog/
+Allow: /resources/
+Allow: /auth/signin
+Allow: /auth/signup
+Allow: /sb-553/
+Allow: /harassment-training/
+Allow: /aml-training/
+Allow: /hipaa-training/
+Allow: /api/public/

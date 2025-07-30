@@ -1,0 +1,265 @@
+{
+  "navigation": {
+    "home": "Home",
+    "search": "Search...",
+    "create": "Create",
+    "notifications": "Notifications",
+    "language": "Language",
+    "help": "Get Help",
+    "profile": "My Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "superadmin": {
+    "title": "Super Admin Launchpad",
+    "subtitle": "Centralized administration for EaseWorks platform management",
+    "userManagement": "User Management",
+    "userManagementDesc": "Manage users, roles, and permissions",
+    "companySettings": "Company Settings",
+    "companySettingsDesc": "Configure company preferences and features",
+    "apiKeyManagement": "API Key Management",
+    "apiKeyManagementDesc": "Create and manage API access keys",
+    "integrations": "Integrations",
+    "integrationsDesc": "Manage API integrations and connections",
+    "wageTableManager": "Wage Table Manager",
+    "wageTableManagerDesc": "Manage wage compliance rules and data sources",
+    "complianceAlerts": "Compliance Alerts",
+    "complianceAlertsDesc": "Monitor wage compliance and manage alerts",
+    "phase2Roadmap": "Phase 2 Roadmap",
+    "phase2RoadmapDesc": "Advanced features and optimization planning"
+  },
+  "launchpads": {
+    "superAdmin": {
+      "title": "Launchpad 🚀",
+      "subtitle": "Master business intelligence and operational command center"
+    },
+    "admin": {
+      "title": "Company Administration",
+      "subtitle": "Manage your organization's operations and workforce"
+    },
+    "employee": {
+      "title": "Employee Portal",
+      "subtitle": "Your personal workspace for HR and employment needs"
+    },
+    "client": {
+      "title": "Client Portal",
+      "subtitle": "Your centralized hub for services and support"
+    },
+    "learner": {
+      "title": "Learning Hub",
+      "subtitle": "Your personalized learning and development center"
+    }
+  },
+  "launchpadCards": {
+    "userManagement": {
+      "title": "User Management",
+      "description": "Manage users, roles, and access permissions"
+    },
+    "companyManagement": {
+      "title": "Company Management", 
+      "description": "Oversee company operations and settings"
+    },
+    "hrManagement": {
+      "title": "HR Management",
+      "description": "Handle employee records and HR processes"
+    },
+    "learningManagement": {
+      "title": "Learning Management",
+      "description": "Manage training programs and educational content"
+    },
+    "systemHealth": {
+      "title": "System Health",
+      "description": "Monitor and maintain system performance"
+    },
+    "analytics": {
+      "title": "Analytics & Reporting",
+      "description": "Access comprehensive business insights"
+    }
+  },
+  "greeting": {
+    "goodMorning": "Good Morning",
+    "goodAfternoon": "Good Afternoon", 
+    "goodEvening": "Good Evening",
+    "welcomeBack": "Ready to get things done?"
+  },
+  "help": {
+    "knowledgeBase": "Knowledge Base",
+    "knowledgeBaseDesc": "Browse FAQs and articles",
+    "aiHelp": "AI Help (Ask Sarah)",
+    "aiHelpDesc": "Get instant help from our AI assistant",
+    "feedback": "Feedback",
+    "feedbackDesc": "Suggest improvements or report issues",
+    "contactUs": "Contact Us",
+    "contactUsDesc": "Reach our support team"
+  },
+  "quickCreate": {
+    "addCompany": "Add Company",
+    "addEmployee": "Add Employee",
+    "addCase": "Add Case",
+    "addDeal": "Add Deal",
+    "addTask": "Add Task"
+  },
+  "notifications": {
+    "newEmployee": "New employee onboarded",
+    "newEmployeeDesc": "{{name}} has completed onboarding",
+    "trainingReminder": "Training reminder",
+    "trainingReminderDesc": "{{count}} employees have pending training",
+    "systemUpdate": "System update",
+    "systemUpdateDesc": "New features available"
+  },
+  "common": {
+    "refresh": "Refresh",
+    "backToDashboard": "Back to Dashboard",
+    "english": "English",
+    "spanish": "Spanish",
+    "next": "Next",
+    "previous": "Previous",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "continue": "Continue",
+    "complete": "Complete",
+    "required": "Required",
+    "optional": "Optional",
+    "loading": "Loading...",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Information"
+  },
+  "onboarding": {
+    "title": "Employee Onboarding",
+    "welcome": "Welcome to",
+    "progress": "Progress: {{current}} of {{total}} steps completed",
+    "step": "Step {{number}}",
+    "steps": {
+      "welcome": {
+        "title": "Welcome",
+        "description": "Get started with your onboarding"
+      },
+      "personalInfo": {
+        "title": "Personal Information",
+        "description": "Basic personal details",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email Address",
+        "phone": "Phone Number",
+        "address": "Address",
+        "street": "Street Address",
+        "city": "City",
+        "state": "State",
+        "zipCode": "ZIP Code",
+        "dateOfBirth": "Date of Birth",
+        "socialSecurity": "Social Security Number"
+      },
+      "i9": {
+        "title": "Form I-9",
+        "description": "Employment eligibility verification",
+        "section1": "Section 1: Employee Information and Attestation",
+        "citizenship": "Citizenship Status",
+        "citizen": "U.S. Citizen",
+        "permanentResident": "Lawful Permanent Resident",
+        "authorized": "Alien authorized to work",
+        "workAuthorization": "Work Authorization",
+        "alienNumber": "Alien Registration Number",
+        "i94Number": "I-94 Admission Number",
+        "passportNumber": "Passport Number",
+        "countryOfIssuance": "Country of Issuance",
+        "expirationDate": "Expiration Date",
+        "uploadId": "Upload ID Documents",
+        "uploadOptional": "(Optional)"
+      },
+      "w4": {
+        "title": "Federal Form W-4",
+        "description": "Employee's withholding certificate",
+        "filingStatus": "Filing Status",
+        "single": "Single",
+        "marriedFilingJointly": "Married filing jointly",
+        "marriedFilingSeparately": "Married filing separately",
+        "headOfHousehold": "Head of household",
+        "multipleJobs": "Multiple Jobs or Spouse Works",
+        "dependents": "Dependents",
+        "otherIncome": "Other Income",
+        "deductions": "Deductions",
+        "extraWithholding": "Extra Withholding"
+      },
+      "stateTax": {
+        "title": "State Tax Form",
+        "description": "State-specific tax withholding",
+        "stateDetermination": "Your state tax form is determined by your work location: {{state}}",
+        "allowances": "Allowances",
+        "exemptions": "Exemptions",
+        "additionalWithholding": "Additional Withholding"
+      },
+      "caWageNotice": {
+        "title": "CA Wage Theft Notice (2810.5)",
+        "description": "California wage and hour information",
+        "regularRate": "Regular Rate of Pay",
+        "overtime": "Overtime Rates",
+        "payPeriod": "Pay Period",
+        "payday": "Payday",
+        "allowances": "Allowances and Deductions",
+        "acknowledgment": "I acknowledge receipt of this notice"
+      },
+      "directDeposit": {
+        "title": "Direct Deposit",
+        "description": "Set up your bank accounts for payroll",
+        "addAccount": "Add Bank Account",
+        "accountType": "Account Type",
+        "checking": "Checking",
+        "savings": "Savings",
+        "bankName": "Bank Name",
+        "routingNumber": "Routing Number",
+        "accountNumber": "Account Number",
+        "confirmAccount": "Confirm Account Number",
+        "allocationType": "Allocation Type",
+        "percentage": "Percentage",
+        "fixedAmount": "Fixed Amount",
+        "remainder": "Remainder",
+        "allocationValue": "Allocation Value",
+        "sampleCheck": "Sample Check",
+        "routingNumberExample": "Routing number is the 9-digit number typically found on the bottom left of your check",
+        "accountNumberExample": "Account number is typically found to the right of the routing number on your check"
+      },
+      "handbook": {
+        "title": "Handbook & Policies",
+        "description": "Review and acknowledge company policies",
+        "employeeHandbook": "Employee Handbook",
+        "codeOfConduct": "Code of Conduct",
+        "privacyPolicy": "Privacy Policy",
+        "safetyPolicies": "Safety Policies",
+        "acknowledgment": "I acknowledge that I have read and understand the above policies",
+        "signature": "Electronic Signature Required"
+      },
+      "signature": {
+        "title": "Electronic Signature",
+        "description": "Complete your onboarding with your signature",
+        "signaturePrompt": "Please sign below to complete your onboarding",
+        "clear": "Clear",
+        "signHere": "Sign here",
+        "finalStep": "This is the final step of your onboarding process"
+      },
+      "completion": {
+        "title": "Onboarding Complete!",
+        "description": "Congratulations! You have successfully completed your onboarding",
+        "summary": "Onboarding Summary",
+        "allStepsCompleted": "All required steps have been completed",
+        "exportPdf": "Download PDF Summary",
+        "nextSteps": "Next Steps",
+        "contactHr": "Your HR department will review your information and contact you with next steps",
+        "welcomeTeam": "Welcome to the team!"
+      }
+    },
+    "validation": {
+      "required": "This field is required",
+      "invalidEmail": "Please enter a valid email address",
+      "invalidPhone": "Please enter a valid phone number",
+      "invalidSsn": "Please enter a valid Social Security Number",
+      "invalidRoutingNumber": "Please enter a valid 9-digit routing number",
+      "invalidAccountNumber": "Please enter a valid account number",
+      "accountNumberMismatch": "Account numbers do not match",
+      "invalidAllocation": "Total allocation cannot exceed 100%",
+      "signatureRequired": "Electronic signature is required"
+    }
+  }
+}

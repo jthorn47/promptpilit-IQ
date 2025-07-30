@@ -1,0 +1,50 @@
+-- Fix search_path security issues for existing database functions
+-- This ensures functions have a fixed search path to prevent security vulnerabilities
+
+-- Update the existing functions with mutable search paths
+ALTER FUNCTION public.update_investment_analysis_updated_at() SET search_path TO 'public';
+ALTER FUNCTION public.update_updated_at_learning() SET search_path TO 'public';
+ALTER FUNCTION public.update_updated_at_video_tables() SET search_path TO 'public';
+ALTER FUNCTION public.update_updated_at_column() SET search_path TO 'public';
+ALTER FUNCTION public.has_active_paying_clients(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.ensure_single_primary_contact() SET search_path TO 'public';
+ALTER FUNCTION public.create_sbw9237_module_for_client() SET search_path TO 'public';
+ALTER FUNCTION public.log_application_stage_change() SET search_path TO 'public';
+ALTER FUNCTION public.handle_company_to_client() SET search_path TO 'public';
+ALTER FUNCTION public.generate_career_page_embed_code() SET search_path TO 'public';
+ALTER FUNCTION public.get_company_latest_assessment(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.extract_domain_from_email(text) SET search_path TO 'public';
+ALTER FUNCTION public.confirm_test_user(text) SET search_path TO 'public';
+ALTER FUNCTION public.log_pay_type_changes() SET search_path TO 'public';
+ALTER FUNCTION public.get_email_performance(date, date) SET search_path TO 'public';
+ALTER FUNCTION public.update_ach_updated_at_column() SET search_path TO 'public';
+ALTER FUNCTION public.validate_routing_number(text) SET search_path TO 'public';
+ALTER FUNCTION public.update_search_index() SET search_path TO 'public';
+ALTER FUNCTION public.trigger_automation_workflows() SET search_path TO 'public';
+ALTER FUNCTION public.generate_nacha_file(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.create_super_admin_user(text, text) SET search_path TO 'public';
+ALTER FUNCTION public.has_role(uuid, app_role) SET search_path TO 'public';
+ALTER FUNCTION public.delete_user_completely(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.handle_assessment_completion() SET search_path TO 'public';
+ALTER FUNCTION public.increment_share_view_count(text) SET search_path TO 'public';
+ALTER FUNCTION public.update_training_module_client_access_updated_at() SET search_path TO 'public';
+ALTER FUNCTION public.is_easeworks_user(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.create_test_account(text, text, app_role, text) SET search_path TO 'public';
+ALTER FUNCTION public.migrate_company_to_client(uuid, text, uuid, uuid) SET search_path TO 'public';
+ALTER FUNCTION public.has_permission(uuid, text) SET search_path TO 'public';
+ALTER FUNCTION public.get_user_permissions(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.has_crm_role(uuid, app_role) SET search_path TO 'public';
+ALTER FUNCTION public.validate_crm_role_assignment() SET search_path TO 'public';
+ALTER FUNCTION public.calculate_conversion_rate(date, date) SET search_path TO 'public';
+ALTER FUNCTION public.get_pipeline_metrics(date, date) SET search_path TO 'public';
+ALTER FUNCTION public.has_company_role(uuid, app_role, uuid) SET search_path TO 'public';
+ALTER FUNCTION public.get_user_company_id(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.generate_article_slug(text) SET search_path TO 'public';
+ALTER FUNCTION public.provision_sso_user(text, uuid, text, text, text, jsonb) SET search_path TO 'public';
+ALTER FUNCTION public.update_article_view_count() SET search_path TO 'public';
+ALTER FUNCTION public.search_companies(text, text, integer) SET search_path TO 'public';
+ALTER FUNCTION public.handle_deal_closure() SET search_path TO 'public';
+ALTER FUNCTION public.handle_risk_assessment_completed() SET search_path TO 'public';
+ALTER FUNCTION public.log_audit_event(uuid, text, text, uuid, uuid, jsonb, jsonb, text, text, text, text, text) SET search_path TO 'public';
+ALTER FUNCTION public.cleanup_expired_sessions() SET search_path TO 'public';
+ALTER FUNCTION public.calculate_payroll_for_period(uuid) SET search_path TO 'public';

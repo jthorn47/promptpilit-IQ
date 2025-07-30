@@ -1,0 +1,134 @@
+
+project_id = "xfamotequcavggiqndfj"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+
+[db.pooler]
+enabled = false
+port = 54329
+pool_mode = "transaction"
+default_pool_size = 20
+max_client_conn = 100
+
+[realtime]
+enabled = true
+ip_version = "ipv4"
+
+[studio]
+enabled = true
+port = 54323
+api_url = "http://127.0.0.1:54321"
+openai_api_key = "env(OPENAI_API_KEY)"
+
+[inbucket]
+enabled = true
+port = 54324
+smtp_port = 54325
+pop3_port = 54326
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+image_transformation = { enabled = true }
+
+[auth]
+enabled = true
+site_url = "http://127.0.0.1:3000"
+additional_redirect_urls = ["https://127.0.0.1:3000"]
+jwt_expiry = 3600
+enable_signup = true
+enable_email_confirmations = false
+enable_email_autoconfirm = false
+enable_phone_confirmations = false
+enable_phone_autoconfirm = false
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = false
+
+[auth.sms]
+enable_signup = false
+enable_confirmations = false
+template = "Your code is {{ .Code }}"
+
+[[auth.providers.oauth]]
+enabled = false
+client_id = "env(SUPABASE_AUTH_GOOGLE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_GOOGLE_SECRET)"
+url = "https://accounts.google.com"
+redirect_uri = "http://127.0.0.1:54321/auth/v1/callback"
+
+[analytics]
+enabled = false
+port = 54327
+vector_port = 54328
+backend = "postgres"
+
+[functions.client-service]
+verify_jwt = true
+
+[functions.monitoring-service]
+verify_jwt = true
+
+[functions.support-service]
+verify_jwt = true
+
+[functions.compliance-service]
+verify_jwt = true
+
+[functions.job-service]
+verify_jwt = true
+
+[functions.audit-log-service]
+verify_jwt = true
+
+[functions.onboarding-service]
+verify_jwt = true
+
+[functions.notification-service]
+verify_jwt = true
+
+[functions.devops-service]
+verify_jwt = true
+
+[functions.sync-integration]
+verify_jwt = true
+
+[functions.get-integration-credentials]
+verify_jwt = true
+
+[functions.generate-totp-secret]
+verify_jwt = true
+
+[functions.verify-totp]
+verify_jwt = true
+
+[functions.disable-2fa]
+verify_jwt = true
+
+[functions.test-resend-integration]
+verify_jwt = true
+
+[functions.send-template-tests]
+verify_jwt = true
+
+[functions.sms-webhook]
+verify_jwt = false
+
+[functions.hali-hook]
+verify_jwt = false
+
+[functions.start-hali-conversation]
+verify_jwt = false
+
+[functions.twilio-sms-helper]
+verify_jwt = false

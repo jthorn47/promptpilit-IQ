@@ -1,0 +1,51 @@
+-- Fix security issues: Update functions that lack proper search_path settings
+-- This addresses the function search path mutable warning
+
+-- Update the existing functions to have proper search_path
+ALTER FUNCTION public.update_article_view_count() SET search_path TO 'public';
+ALTER FUNCTION public.update_case_documents_updated_at() SET search_path TO 'public';
+ALTER FUNCTION public.validate_brand_identity_deletion() SET search_path TO 'public';
+ALTER FUNCTION public.generate_case_share_token() SET search_path TO 'public';
+ALTER FUNCTION public.log_time_policy_changes() SET search_path TO 'public';
+ALTER FUNCTION public.update_client_time_settings_updated_at() SET search_path TO 'public';
+ALTER FUNCTION public.create_default_client_time_settings() SET search_path TO 'public';
+ALTER FUNCTION public.log_org_structure_changes() SET search_path TO 'public';
+ALTER FUNCTION public.update_halo_updated_at() SET search_path TO 'public';
+ALTER FUNCTION public.update_timecard_entry(uuid, jsonb) SET search_path TO 'public';
+ALTER FUNCTION public.update_email_logs_updated_at() SET search_path TO 'public';
+ALTER FUNCTION public.update_search_vector() SET search_path TO 'public';
+ALTER FUNCTION public.calculate_account_balances_from_gl(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.migrate_hubspot_companies() SET search_path TO 'public';
+ALTER FUNCTION public.cleanup_expired_integration_sessions() SET search_path TO 'public';
+ALTER FUNCTION public.delete_user_completely(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.create_test_account(text, text, app_role, text) SET search_path TO 'public';
+ALTER FUNCTION public.calculate_account_balances_simple(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.calculate_spin_completion_score(text, text, text, text) SET search_path TO 'public';
+ALTER FUNCTION public.get_brand_email_domain(brand_identity, text) SET search_path TO 'public';
+ALTER FUNCTION public.check_integration_connection(text, text) SET search_path TO 'public';
+ALTER FUNCTION public.get_integration_status(text, text) SET search_path TO 'public';
+ALTER FUNCTION public.generate_invitation_token() SET search_path TO 'public';
+ALTER FUNCTION public.disconnect_integration(text, text) SET search_path TO 'public';
+ALTER FUNCTION public.generate_follow_up_tasks() SET search_path TO 'public';
+ALTER FUNCTION public.migrate_hubspot_contacts() SET search_path TO 'public';
+ALTER FUNCTION public.get_company_latest_assessment(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.extract_domain_from_email(text) SET search_path TO 'public';
+ALTER FUNCTION public.confirm_test_user(text) SET search_path TO 'public';
+ALTER FUNCTION public.update_employee_portal_updated_at() SET search_path TO 'public';
+ALTER FUNCTION public.update_ai_assistant_logs_updated_at() SET search_path TO 'public';
+ALTER FUNCTION public.log_pay_type_changes() SET search_path TO 'public';
+ALTER FUNCTION public.get_email_performance(date, date) SET search_path TO 'public';
+ALTER FUNCTION public.update_ach_updated_at_column() SET search_path TO 'public';
+ALTER FUNCTION public.validate_routing_number(text) SET search_path TO 'public';
+ALTER FUNCTION public.update_search_index() SET search_path TO 'public';
+ALTER FUNCTION public.generate_nacha_file(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.get_document_tags(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.update_client_payroll_settings_updated_at() SET search_path TO 'public';
+ALTER FUNCTION public.validate_lifecycle_stage_change() SET search_path TO 'public';
+ALTER FUNCTION public.calculate_account_balances_fast(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.update_spin_completion_score() SET search_path TO 'public';
+ALTER FUNCTION public.auto_generate_halobill_invoice_number() SET search_path TO 'public';
+ALTER FUNCTION public.get_entity_tags(text, uuid) SET search_path TO 'public';
+ALTER FUNCTION public.calculate_account_balances_pattern_match(uuid) SET search_path TO 'public';
+ALTER FUNCTION public.check_training_completion() SET search_path TO 'public';
+ALTER FUNCTION public.log_lifecycle_stage_change() SET search_path TO 'public';

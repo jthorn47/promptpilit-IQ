@@ -1,0 +1,24 @@
+// TEMPORARILY DISABLED DUE TO BUILD ERRORS
+// This file has been moved to resolve TypeScript compilation issues
+// Will be re-enabled after schema fixes are applied
+
+// TODO: Fix the following issues:
+// 1. Missing user_profiles table
+// 2. Column mismatches (assigned_to, title, last_activity_date)
+// 3. JSON type casting issues
+// 4. Enum value mismatches
+
+export const useCRMAlerts = () => {
+  return {
+    alerts: [],
+    loading: false,
+    error: null,
+    markAsRead: () => {},
+    dismissAlert: () => {},
+    getAlertsByType: () => [],
+    getUserAlerts: () => [],
+    getTaskAlerts: () => [],
+    getOpportunityAlerts: () => [],
+    getRiskAlerts: () => []
+  };
+};

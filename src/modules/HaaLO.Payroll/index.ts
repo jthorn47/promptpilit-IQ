@@ -1,0 +1,1 @@
+export { ClientPayrollProcessingPage } from '@/modules/payroll/pages/ClientPayrollProcessingPage';

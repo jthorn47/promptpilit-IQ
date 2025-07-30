@@ -1,0 +1,913 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global horizontal scroll prevention */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  height: 100%;
+  /* Ensure mobile scrolling works */
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y pinch-zoom;
+}
+
+/* Ensure proper mobile touch and scroll behavior */
+* {
+  box-sizing: border-box;
+}
+
+/* Fix mobile touch scrolling - allow body to scroll */
+#root {
+  height: 100vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y pinch-zoom;
+}
+
+/* Ensure main content areas can scroll on mobile */
+main, [role="main"] {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y pinch-zoom;
+}
+
+/* Custom touch-action utilities for mobile */
+.touch-action-manipulation {
+  touch-action: manipulation;
+}
+
+.touch-action-pan-y {
+  touch-action: pan-y pinch-zoom;
+}
+
+/* Mobile safe area support */
+@supports (padding: max(0px)) {
+  .safe-area-inset-top {
+    padding-top: max(env(safe-area-inset-top), 1rem);
+  }
+  .safe-area-inset-bottom {
+    padding-bottom: max(env(safe-area-inset-bottom), 1rem);
+  }
+  .safe-area-inset-left {
+    padding-left: max(env(safe-area-inset-left), 1rem);
+  }
+  .safe-area-inset-right {
+    padding-right: max(env(safe-area-inset-right), 1rem);
+  }
+}
+
+/* Enhanced mobile sidebar styling - LIGHT MODE */
+[data-sidebar="sidebar"][data-mobile="true"] {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  background: hsl(0 0% 100%) !important;
+  opacity: 1 !important;
+}
+
+/* Force visibility and proper styling for SidebarTrigger */
+[data-sidebar="trigger"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: hsl(240 3.7% 15.9%) !important;
+  color: hsl(0 0% 98%) !important;
+  border: 1px solid hsl(240 3.7% 15.9%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 36px !important;
+  min-width: 36px !important;
+}
+
+[data-sidebar="trigger"]:hover {
+  background: hsl(249 56% 58%) !important;
+  color: hsl(0 0% 98%) !important;
+  border-color: hsl(249 56% 58%) !important;
+}
+
+[data-sidebar="trigger"] svg {
+  opacity: 1 !important;
+  color: hsl(0 0% 98%) !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* Light mode sidebar styling */
+[data-sidebar="content"] {
+  background: hsl(0 0% 100%) !important;
+  color: hsl(240 10% 3.9%) !important;
+  opacity: 1 !important;
+}
+
+[data-sidebar="header"] {
+  background: hsl(0 0% 100%) !important;
+  border-bottom: 1px solid hsl(240 5% 84%) !important;
+}
+
+/* Navigation styling in light mode */
+[data-sidebar="group"] {
+  background: transparent !important;
+}
+
+[data-sidebar="group-label"] {
+  color: hsl(240 3.7% 35%) !important;
+  opacity: 1 !important;
+  font-weight: 500 !important;
+}
+
+[data-sidebar="menu-button"] {
+  color: hsl(240 10% 3.9%) !important;
+  opacity: 1 !important;
+  transition: all 0.2s ease !important;
+  touch-action: manipulation !important;
+  cursor: pointer !important;
+  user-select: none !important;
+}
+
+[data-sidebar="menu-button"]:hover {
+  background: hsl(240 4.8% 95.9%) !important;
+  color: hsl(240 10% 3.9%) !important;
+}
+
+[data-sidebar="menu-button"][data-active="true"] {
+  background: hsl(249 56% 58%) !important;
+  color: hsl(0 0% 100%) !important;
+}
+
+/* Icons within sidebar */
+[data-sidebar] svg {
+  opacity: 1 !important;
+  color: hsl(240 10% 3.9%) !important;
+}
+
+/* Mobile specific light mode improvements */
+@media (max-width: 767px) {
+  [data-sidebar="menu-item"] {
+    padding: 16px !important;
+    margin: 2px 8px !important;
+    opacity: 1 !important;
+    background: transparent !important;
+    border-radius: 8px !important;
+  }
+  
+  [data-sidebar="menu-button"] {
+    min-height: 52px !important;
+    padding: 16px !important;
+    opacity: 1 !important;
+    color: hsl(240 10% 3.9%) !important;
+    background: transparent !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+  }
+  
+  [data-sidebar="menu-button"]:hover {
+    background: hsl(240 4.8% 95.9%) !important;
+  }
+  
+  [data-sidebar="group-label"] {
+    opacity: 1 !important;
+    color: hsl(240 3.7% 35%) !important;
+    padding: 12px 16px 8px 16px !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+  }
+}
+
+/* HALOworks Futuristic Design System - Dark Mode First */
+
+@layer base {
+  :root {
+    /* Light mode fallback (minimal usage) */
+    --background: 0 0% 98%;
+    --foreground: 240 20% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 20% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 20% 12%;
+    --primary: 249 56% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 249 56% 58%;
+    --radius: 0.75rem;
+    
+    /* Modern Inbox Theme Tokens */
+    --inbox-background: 0 0% 98%;
+    --inbox-surface: 0 0% 100%;
+    --inbox-border: 240 5.9% 94%;
+    --inbox-text-primary: 240 20% 12%;
+    --inbox-text-secondary: 240 3.8% 46.1%;
+    --inbox-accent: 249 56% 58%;
+  }
+
+  .dark {
+    /* HALOworks Dark Mode - Primary Theme */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    
+    /* Glassmorphic Cards */
+    --card: 240 10% 6%;
+    --card-foreground: 0 0% 98%;
+    --card-glass: 240 10% 6% / 0.8;
+    
+    /* Popovers with Glass Effect */
+    --popover: 240 10% 7%;
+    --popover-foreground: 0 0% 98%;
+    
+    /* HALOworks Primary - #655DC6 */
+    --primary: 249 56% 58%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 249 56% 58% / 0.3;
+    --primary-hover: 249 56% 65%;
+    --primary-active: 249 56% 50%;
+    
+    /* Secondary Surfaces */
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --secondary-glass: 240 3.7% 15.9% / 0.6;
+    
+    /* Muted Elements */
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    
+    /* Accent Colors */
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    
+    /* Destructive */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* Borders */
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 249 56% 58%;
+    
+    /* Sidebar Colors - Strong background for mobile */
+    --sidebar: 240 10% 8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-primary: 249 56% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-ring: 249 56% 58%;
+    
+    /* Success Colors */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
+    --success-glow: 142 76% 36% / 0.3;
+    
+    /* Warning Colors */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 98%;
+    --warning-glow: 38 92% 50% / 0.3;
+    
+    /* HALOworks Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(249 56% 58%) 0%, hsl(249 56% 65%) 50%, hsl(249 56% 70%) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    --gradient-neural: radial-gradient(ellipse at center, hsl(249 56% 58% / 0.15) 0%, transparent 70%);
+    --gradient-ambient: linear-gradient(45deg, hsl(249 56% 58% / 0.1) 0%, hsl(249 56% 65% / 0.05) 50%, hsl(249 56% 70% / 0.1) 100%);
+    
+    /* Tesla-inspired Shadows */
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    --shadow-glow: 0 0 20px hsl(249 56% 58% / 0.3), 0 0 40px hsl(249 56% 58% / 0.1);
+    --shadow-neural: 0 4px 24px rgba(0, 0, 0, 0.4), 0 8px 48px rgba(0, 0, 0, 0.2);
+    --shadow-magnetic: 0 12px 56px hsl(249 56% 58% / 0.25), 0 4px 16px rgba(0, 0, 0, 0.3);
+    
+    /* Backdrop Blur */
+    --backdrop-glass: blur(20px) saturate(180%);
+    --backdrop-strong: blur(40px) saturate(200%);
+    
+    /* Modern Inbox Dark Theme Tokens */
+    --inbox-background: 240 10% 3.9%;
+    --inbox-surface: 240 10% 6%;
+    --inbox-border: 240 3.7% 15.9%;
+    --inbox-text-primary: 0 0% 98%;
+    --inbox-text-secondary: 240 5% 64.9%;
+    --inbox-accent: 249 56% 58%;
+  }
+
+  .zen {
+    /* Zen Mode - Minimal, calm colors */
+    --background: 210 20% 98%;
+    --foreground: 215 25% 27%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 27%;
+    --primary: 25 95% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 95%;
+    --secondary-foreground: 215 25% 27%;
+    --muted: 210 40% 95%;
+    --muted-foreground: 215 15% 47%;
+    --accent: 210 40% 95%;
+    --accent-foreground: 215 25% 27%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 210 40% 90%;
+    --input: 210 40% 90%;
+    --ring: 25 95% 53%;
+    
+    /* Modern Inbox Zen Theme Tokens */
+    --inbox-background: 210 20% 98%;
+    --inbox-surface: 0 0% 100%;
+    --inbox-border: 210 40% 88%;
+    --inbox-text-primary: 215 25% 27%;
+    --inbox-text-secondary: 215 15% 47%;
+    --inbox-accent: 25 95% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    background: hsl(var(--background));
+    min-height: 100vh;
+  }
+
+  /* Typography System */
+  .text-body {
+    font-family: 'Roboto', 'Open Sans', system-ui, sans-serif;
+  }
+
+  .text-heading {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* Glass Morphism Base */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: var(--backdrop-glass);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: var(--backdrop-strong);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* Enhanced Focus States */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+
+  /* Mobile-First Scrollbar Styling */
+  /* Hide scrollbars by default on mobile and touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    /* Hide native scrollbars on mobile */
+    * {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* Internet Explorer 10+ */
+    }
+    
+    *::-webkit-scrollbar {
+      display: none; /* WebKit browsers */
+    }
+    
+    /* Show scrollbars only when scrolling or touching scroll area */
+    .scroll-container {
+      scrollbar-width: thin;
+      scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+    }
+    
+    .scroll-container::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+      display: block;
+    }
+    
+    .scroll-container::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .scroll-container::-webkit-scrollbar-thumb {
+      background: hsl(var(--muted-foreground) / 0.3);
+      border-radius: 2px;
+    }
+    
+    /* Show scrollbar temporarily during scroll */
+    .scroll-active {
+      scrollbar-width: thin;
+      scrollbar-color: hsl(var(--muted-foreground) / 0.5) transparent;
+    }
+    
+    .scroll-active::-webkit-scrollbar {
+      display: block;
+    }
+    
+    .scroll-active::-webkit-scrollbar-thumb {
+      background: hsl(var(--muted-foreground) / 0.5);
+    }
+  }
+  
+  /* Desktop scrollbar styling (unchanged) */
+  @media (hover: hover) and (pointer: fine) {
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: hsl(var(--muted-foreground) / 0.3);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: hsl(var(--muted-foreground) / 0.5);
+    }
+  }
+}
+
+@layer components {
+  /* HALOworks Button System */
+  .btn-halo {
+    @apply relative inline-flex items-center justify-center px-6 py-3 rounded-xl font-medium text-sm transition-all duration-300 ease-out;
+    @apply glass border-0 hover:shadow-glow hover:scale-105 active:scale-95;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-hover)) 100%);
+    color: hsl(var(--primary-foreground));
+    box-shadow: var(--shadow-glass);
+  }
+
+  .btn-halo:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+  }
+
+  .btn-halo-secondary {
+    @apply relative inline-flex items-center justify-center px-6 py-3 rounded-xl font-medium text-sm transition-all duration-300 ease-out;
+    @apply glass-strong border-0 hover:shadow-neural hover:scale-105 active:scale-95;
+    background: hsl(var(--secondary-glass));
+    color: hsl(var(--secondary-foreground));
+  }
+
+  .btn-halo-ghost {
+    @apply relative inline-flex items-center justify-center px-6 py-3 rounded-xl font-medium text-sm transition-all duration-300 ease-out;
+    @apply hover:glass hover:scale-105 active:scale-95;
+    background: transparent;
+    color: hsl(var(--muted-foreground));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .btn-halo-ghost:hover {
+    color: hsl(var(--foreground));
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  /* HALOworks Card System */
+  .card-halo {
+    @apply glass-strong rounded-2xl p-6 shadow-neural transition-all duration-500;
+    background: hsl(var(--card-glass));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .card-halo-hover {
+    @apply card-halo hover:shadow-glow hover:scale-[1.02] hover:border-primary/20;
+  }
+
+  /* HALOworks Input System */
+  .input-halo {
+    @apply glass rounded-xl px-4 py-3 text-sm bg-transparent border-0 text-foreground placeholder:text-muted-foreground;
+    @apply focus:shadow-glow focus:ring-2 focus:ring-primary/30 transition-all duration-300;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .input-halo:focus {
+    border-color: hsl(var(--primary) / 0.3);
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.2);
+  }
+
+  /* HALO Pulse Animation */
+  .halo-pulse {
+    @apply relative;
+  }
+
+  .halo-pulse::before {
+    content: '';
+    @apply absolute inset-0 rounded-full bg-primary/20 animate-ping;
+  }
+
+  .halo-pulse::after {
+    content: '';
+    @apply absolute inset-0 rounded-full bg-primary/10;
+    animation: halo-pulse-ring 2s ease-in-out infinite;
+  }
+
+  /* HALOworks Navigation */
+  .nav-halo {
+    @apply glass-strong border-b border-white/10;
+    backdrop-filter: blur(20px) saturate(180%);
+  }
+
+  /* HALOworks Sidebar */
+  .sidebar-halo {
+    @apply glass-strong border-r border-white/10 h-full;
+    backdrop-filter: blur(20px) saturate(180%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+  }
+
+  /* HALOworks Modal */
+  .modal-halo {
+    @apply glass-strong rounded-2xl p-6 shadow-magnetic border border-white/10 max-w-lg w-full mx-4;
+    backdrop-filter: blur(40px) saturate(200%);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* HALOworks Table */
+  .table-halo {
+    @apply glass rounded-xl overflow-hidden border border-white/10;
+  }
+
+  .table-halo thead {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+  }
+
+  .table-halo tbody tr {
+    @apply border-b border-white/5 hover:bg-white/3 transition-colors duration-200;
+  }
+
+  /* HALOworks Badge */
+  .badge-halo {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium glass;
+    background: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
+    border: 1px solid hsl(var(--primary) / 0.2);
+  }
+
+  /* HALOworks Progress */
+  .progress-halo {
+    @apply relative h-2 rounded-full overflow-hidden glass;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .progress-halo-fill {
+    @apply h-full rounded-full transition-all duration-500 ease-out;
+    background: var(--gradient-primary);
+    box-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+  }
+
+  /* Mobile-friendly touch targets */
+  @media (hover: none) and (pointer: coarse) {
+    .btn-halo,
+    .btn-halo-secondary,
+    .btn-halo-ghost {
+      @apply min-h-[44px] min-w-[44px] py-3 px-6;
+    }
+  }
+}
+
+@layer utilities {
+  /* Custom animations for HaaLO landing page */
+  .animate-pulse-slow {
+    animation: pulse 8s ease-in-out infinite alternate;
+  }
+  .animate-fade-in {
+    animation: fadeIn 2s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0 }
+    to { opacity: 1 }
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.2 }
+    50% { transform: scale(1.01); opacity: 0.4 }
+    100% { transform: scale(1); opacity: 0.2 }
+  }
+  /* HALOworks Animation System */
+  @keyframes halo-pulse-ring {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--primary) / 0.6), 0 0 60px hsl(var(--primary) / 0.3);
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes magnetic-lift {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      transform: translateY(-8px) scale(1.02);
+    }
+  }
+
+  /* Animation Classes */
+  .animate-halo-pulse {
+    animation: halo-pulse-ring 2s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.3s ease-out;
+  }
+
+  /* Hero banner responsive utilities */
+  .hero-banner-responsive {
+    @apply text-base lg:text-lg opacity-90;
+  }
+  
+  .hero-banner-title {
+    @apply text-2xl lg:text-3xl font-bold mb-1;
+  }
+  
+  /* Hero banner smooth transitions */
+  .hero-banner-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Mobile scrollbar utilities */
+  .mobile-scroll-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .mobile-scroll-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .mobile-scroll-auto {
+    scrollbar-width: auto;
+    -ms-overflow-style: auto;
+  }
+  
+  .mobile-scroll-auto::-webkit-scrollbar {
+    display: block;
+  }
+  
+  /* Apply mobile scrollbar behavior automatically */
+  @media (hover: none) and (pointer: coarse) {
+    .auto-mobile-scroll {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    
+    .auto-mobile-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .auto-mobile-scroll.scrolling {
+      scrollbar-width: thin;
+      scrollbar-color: hsl(var(--muted-foreground) / 0.4) transparent;
+    }
+    
+    .auto-mobile-scroll.scrolling::-webkit-scrollbar {
+      display: block;
+      width: 4px;
+      height: 4px;
+    }
+    
+    .auto-mobile-scroll.scrolling::-webkit-scrollbar-thumb {
+      background: hsl(var(--muted-foreground) / 0.4);
+      border-radius: 2px;
+    }
+  }
+  }
+
+  .animate-magnetic-lift {
+    animation: magnetic-lift 0.3s ease-out forwards;
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-neural);
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .hover-magnetic {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-magnetic:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-magnetic);
+  }
+
+  /* Inbox-specific hover effects */
+  .hover-scale {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+
+  /* Inbox theme variations */
+  .zen-theme {
+    --background: 210 20% 98%;
+    --foreground: 215 25% 27%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+    --muted: 210 40% 95%;
+    --muted-foreground: 215 15% 47%;
+    --primary: 258 92% 58%;
+    --primary-foreground: 0 0% 100%;
+  }
+
+  /* Utility Classes */
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .border-gradient {
+    border: 1px solid transparent;
+    background: linear-gradient(hsl(var(--background)), hsl(var(--background))) padding-box,
+                var(--gradient-primary) border-box;
+  }
+
+  .bg-neural {
+    background: var(--gradient-neural);
+  }
+
+  .bg-ambient {
+    background: var(--gradient-ambient);
+  }
+
+  /* Mobile Optimizations */
+  @media (max-width: 768px) {
+    .card-halo {
+      @apply p-4 rounded-xl;
+    }
+
+    .modal-halo {
+      @apply mx-2 p-4;
+    }
+
+    .btn-halo,
+    .btn-halo-secondary,
+    .btn-halo-ghost {
+      @apply px-4 py-3 text-sm;
+    }
+  }
+
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    .animate-halo-pulse,
+    .animate-float,
+    .animate-glow {
+      animation: none !important;
+    }
+  }
+
+  /* Force solid background for mobile sidebar */
+  [data-sidebar="sidebar"][data-mobile="true"] {
+    background: hsl(var(--sidebar)) !important;
+    backdrop-filter: none !important;
+  }
+  
+  /* Ensure sheet content has solid background */
+  [data-radix-dialog-content] {
+    background: hsl(var(--sidebar)) !important;
+  }
+
+/* Enhanced floating animations for beautiful header design */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-10px) rotate(2deg); 
+  }
+}
+
+@keyframes gentle-bounce {
+  0%, 100% { 
+    transform: translateY(0px) scale(1); 
+  }
+  50% { 
+    transform: translateY(-5px) scale(1.05); 
+  }
+}
+
+/* Scrollbar hide utility */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}

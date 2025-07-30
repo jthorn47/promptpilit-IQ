@@ -1,0 +1,265 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "search": "Buscar...",
+    "create": "Crear",
+    "notifications": "Notificaciones",
+    "language": "Idioma",
+    "help": "Obtener Ayuda",
+    "profile": "Mi Perfil",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión"
+  },
+  "superadmin": {
+    "title": "Panel de Control de Super Administrador",
+    "subtitle": "Administración centralizada para la gestión de la plataforma EaseWorks",
+    "userManagement": "Gestión de Usuarios",
+    "userManagementDesc": "Gestionar usuarios, roles y permisos",
+    "companySettings": "Configuración de Empresa",
+    "companySettingsDesc": "Configurar preferencias y características de la empresa",
+    "apiKeyManagement": "Gestión de Claves API",
+    "apiKeyManagementDesc": "Crear y gestionar claves de acceso API",
+    "integrations": "Integraciones",
+    "integrationsDesc": "Gestionar integraciones API y conexiones",
+    "wageTableManager": "Gestor de Tablas Salariales",
+    "wageTableManagerDesc": "Gestionar reglas de cumplimiento salarial y fuentes de datos",
+    "complianceAlerts": "Alertas de Cumplimiento",
+    "complianceAlertsDesc": "Monitorear cumplimiento salarial y gestionar alertas",
+    "phase2Roadmap": "Hoja de Ruta Fase 2",
+    "phase2RoadmapDesc": "Características avanzadas y planificación de optimización"
+  },
+  "launchpads": {
+    "superAdmin": {
+      "title": "Panel de Control 🚀",
+      "subtitle": "Centro de comando e inteligencia empresarial maestro"
+    },
+    "admin": {
+      "title": "Administración de Empresa",
+      "subtitle": "Gestiona las operaciones y la fuerza laboral de tu organización"
+    },
+    "employee": {
+      "title": "Portal del Empleado",
+      "subtitle": "Tu espacio de trabajo personal para RRHH y necesidades laborales"
+    },
+    "client": {
+      "title": "Portal del Cliente",
+      "subtitle": "Tu centro centralizado para servicios y soporte"
+    },
+    "learner": {
+      "title": "Centro de Aprendizaje",
+      "subtitle": "Tu centro personalizado de aprendizaje y desarrollo"
+    }
+  },
+  "launchpadCards": {
+    "userManagement": {
+      "title": "Gestión de Usuarios",
+      "description": "Gestionar usuarios, roles y permisos de acceso"
+    },
+    "companyManagement": {
+      "title": "Gestión de Empresa",
+      "description": "Supervisar operaciones y configuraciones de la empresa"
+    },
+    "hrManagement": {
+      "title": "Gestión de RRHH",
+      "description": "Manejar registros de empleados y procesos de RRHH"
+    },
+    "learningManagement": {
+      "title": "Gestión de Aprendizaje",
+      "description": "Gestionar programas de capacitación y contenido educativo"
+    },
+    "systemHealth": {
+      "title": "Estado del Sistema",
+      "description": "Monitorear y mantener el rendimiento del sistema"
+    },
+    "analytics": {
+      "title": "Analíticas e Informes",
+      "description": "Acceder a insights empresariales completos"
+    }
+  },
+  "greeting": {
+    "goodMorning": "Buenos Días",
+    "goodAfternoon": "Buenas Tardes",
+    "goodEvening": "Buenas Noches", 
+    "welcomeBack": "¿Listo para hacer las cosas?"
+  },
+  "help": {
+    "knowledgeBase": "Base de Conocimientos",
+    "knowledgeBaseDesc": "Explorar preguntas frecuentes y artículos",
+    "aiHelp": "Ayuda IA (Pregunta a Sarah)",
+    "aiHelpDesc": "Obtener ayuda instantánea de nuestro asistente IA",
+    "feedback": "Comentarios",
+    "feedbackDesc": "Sugerir mejoras o reportar problemas",
+    "contactUs": "Contáctanos",
+    "contactUsDesc": "Contactar a nuestro equipo de soporte"
+  },
+  "quickCreate": {
+    "addCompany": "Agregar Empresa",
+    "addEmployee": "Agregar Empleado",
+    "addCase": "Agregar Caso",
+    "addDeal": "Agregar Negocio",
+    "addTask": "Agregar Tarea"
+  },
+  "notifications": {
+    "newEmployee": "Nuevo empleado incorporado",
+    "newEmployeeDesc": "{{name}} ha completado la incorporación",
+    "trainingReminder": "Recordatorio de capacitación",
+    "trainingReminderDesc": "{{count}} empleados tienen capacitación pendiente",
+    "systemUpdate": "Actualización del sistema",
+    "systemUpdateDesc": "Nuevas características disponibles"
+  },
+  "common": {
+    "refresh": "Actualizar",
+    "backToDashboard": "Volver al Panel",
+    "english": "Inglés",
+    "spanish": "Español",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "submit": "Enviar",
+    "continue": "Continuar",
+    "complete": "Completar",
+    "required": "Requerido",
+    "optional": "Opcional",
+    "loading": "Cargando...",
+    "success": "Éxito",
+    "error": "Error",
+    "warning": "Advertencia",
+    "info": "Información"
+  },
+  "onboarding": {
+    "title": "Incorporación de Empleados",
+    "welcome": "Bienvenido a",
+    "progress": "Progreso: {{current}} de {{total}} pasos completados",
+    "step": "Paso {{number}}",
+    "steps": {
+      "welcome": {
+        "title": "Bienvenida",
+        "description": "Comience con su incorporación"
+      },
+      "personalInfo": {
+        "title": "Información Personal",
+        "description": "Detalles personales básicos",
+        "firstName": "Nombre",
+        "lastName": "Apellido",
+        "email": "Correo Electrónico",
+        "phone": "Número de Teléfono",
+        "address": "Dirección",
+        "street": "Dirección de la Calle",
+        "city": "Ciudad",
+        "state": "Estado",
+        "zipCode": "Código Postal",
+        "dateOfBirth": "Fecha de Nacimiento",
+        "socialSecurity": "Número de Seguro Social"
+      },
+      "i9": {
+        "title": "Formulario I-9",
+        "description": "Verificación de elegibilidad de empleo",
+        "section1": "Sección 1: Información del Empleado y Certificación",
+        "citizenship": "Estado de Ciudadanía",
+        "citizen": "Ciudadano de EE.UU.",
+        "permanentResident": "Residente Permanente Legal",
+        "authorized": "Extranjero autorizado para trabajar",
+        "workAuthorization": "Autorización de Trabajo",
+        "alienNumber": "Número de Registro de Extranjero",
+        "i94Number": "Número de Admisión I-94",
+        "passportNumber": "Número de Pasaporte",
+        "countryOfIssuance": "País de Emisión",
+        "expirationDate": "Fecha de Vencimiento",
+        "uploadId": "Subir Documentos de Identificación",
+        "uploadOptional": "(Opcional)"
+      },
+      "w4": {
+        "title": "Formulario Federal W-4",
+        "description": "Certificado de retención del empleado",
+        "filingStatus": "Estado Civil",
+        "single": "Soltero",
+        "marriedFilingJointly": "Casado presentando conjuntamente",
+        "marriedFilingSeparately": "Casado presentando por separado",
+        "headOfHousehold": "Cabeza de familia",
+        "multipleJobs": "Múltiples Trabajos o Cónyuge Trabaja",
+        "dependents": "Dependientes",
+        "otherIncome": "Otros Ingresos",
+        "deductions": "Deducciones",
+        "extraWithholding": "Retención Adicional"
+      },
+      "stateTax": {
+        "title": "Formulario de Impuestos Estatales",
+        "description": "Retención de impuestos específica del estado",
+        "stateDetermination": "Su formulario de impuestos estatales se determina por su ubicación de trabajo: {{state}}",
+        "allowances": "Exenciones",
+        "exemptions": "Exenciones",
+        "additionalWithholding": "Retención Adicional"
+      },
+      "caWageNotice": {
+        "title": "Aviso de Salarios de CA (2810.5)",
+        "description": "Información de salarios y horas de California",
+        "regularRate": "Tarifa Regular de Pago",
+        "overtime": "Tarifas de Horas Extras",
+        "payPeriod": "Período de Pago",
+        "payday": "Día de Pago",
+        "allowances": "Asignaciones y Deducciones",
+        "acknowledgment": "Reconozco haber recibido este aviso"
+      },
+      "directDeposit": {
+        "title": "Depósito Directo",
+        "description": "Configure sus cuentas bancarias para nómina",
+        "addAccount": "Agregar Cuenta Bancaria",
+        "accountType": "Tipo de Cuenta",
+        "checking": "Corriente",
+        "savings": "Ahorros",
+        "bankName": "Nombre del Banco",
+        "routingNumber": "Número de Ruta",
+        "accountNumber": "Número de Cuenta",
+        "confirmAccount": "Confirmar Número de Cuenta",
+        "allocationType": "Tipo de Asignación",
+        "percentage": "Porcentaje",
+        "fixedAmount": "Cantidad Fija",
+        "remainder": "Resto",
+        "allocationValue": "Valor de Asignación",
+        "sampleCheck": "Cheque de Muestra",
+        "routingNumberExample": "El número de ruta es el número de 9 dígitos que típicamente se encuentra en la parte inferior izquierda de su cheque",
+        "accountNumberExample": "El número de cuenta típicamente se encuentra a la derecha del número de ruta en su cheque"
+      },
+      "handbook": {
+        "title": "Manual y Políticas",
+        "description": "Revisar y reconocer las políticas de la empresa",
+        "employeeHandbook": "Manual del Empleado",
+        "codeOfConduct": "Código de Conducta",
+        "privacyPolicy": "Política de Privacidad",
+        "safetyPolicies": "Políticas de Seguridad",
+        "acknowledgment": "Reconozco que he leído y entendido las políticas anteriores",
+        "signature": "Firma Electrónica Requerida"
+      },
+      "signature": {
+        "title": "Firma Electrónica",
+        "description": "Complete su incorporación con su firma",
+        "signaturePrompt": "Por favor firme abajo para completar su incorporación",
+        "clear": "Limpiar",
+        "signHere": "Firme aquí",
+        "finalStep": "Este es el paso final de su proceso de incorporación"
+      },
+      "completion": {
+        "title": "¡Incorporación Completa!",
+        "description": "¡Felicitaciones! Ha completado exitosamente su incorporación",
+        "summary": "Resumen de Incorporación",
+        "allStepsCompleted": "Todos los pasos requeridos han sido completados",
+        "exportPdf": "Descargar Resumen en PDF",
+        "nextSteps": "Próximos Pasos",
+        "contactHr": "Su departamento de RRHH revisará su información y se pondrá en contacto con usted con los próximos pasos",
+        "welcomeTeam": "¡Bienvenido al equipo!"
+      }
+    },
+    "validation": {
+      "required": "Este campo es requerido",
+      "invalidEmail": "Por favor ingrese un correo electrónico válido",
+      "invalidPhone": "Por favor ingrese un número de teléfono válido",
+      "invalidSsn": "Por favor ingrese un Número de Seguro Social válido",
+      "invalidRoutingNumber": "Por favor ingrese un número de ruta válido de 9 dígitos",
+      "invalidAccountNumber": "Por favor ingrese un número de cuenta válido",
+      "accountNumberMismatch": "Los números de cuenta no coinciden",
+      "invalidAllocation": "La asignación total no puede exceder el 100%",
+      "signatureRequired": "Se requiere firma electrónica"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+// Centralized exports for LMS hooks
+export { useTrainingModules } from './useTrainingModules';
+export { useTrainingAssignments } from './useTrainingAssignments';
+export { useTrainingCompletions } from './useTrainingCompletions';
+export { useCertificates } from './useCertificates';
+export { useTrainingScenes } from './useTrainingScenes';
+export { useSceneCompletions } from './useSceneCompletions';
+export { useLMSMetrics } from './useLMSMetrics';
+export { useLMSReports } from './useLMSReports';

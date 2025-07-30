@@ -1,0 +1,24 @@
+// CRM Module Components
+export { default as DealsManager } from './DealsManager';
+export { LeadsManager } from './LeadsManager';
+export { ActivitiesManager } from './ActivitiesManager';
+export { CRMDemo } from './CRMDemo';
+export { CompaniesManager } from './CompaniesManager';
+export { CompanyProfileView } from './CompanyProfileView';
+export { OpportunityDetailView } from './OpportunityDetailView';
+export { CRMDashboard } from './CRMDashboard';
+export { EmailTemplatesManager } from './EmailTemplatesManager';
+export { EmailCampaignsManager } from './EmailCampaignsManager';
+export { HubSpotImportManager } from './HubSpotImportManager';
+export { ContactsManager } from './ContactsManager';
+export { SubscriptionsManager } from './SubscriptionsManager';
+export { PurchasesManager } from './PurchasesManager';
+export { OpportunitiesManager } from './OpportunitiesManager';
+export { Navigator } from './Navigator';
+export { ForecastingDashboard } from './ForecastingDashboard';
+export { TasksFollowUpsManager } from './TasksFollowUpsManager';
+export { AutomationsManager } from './AutomationsManager';
+export { AIAutomationEngine } from './AIAutomationEngine';
+export { AdvancedAnalytics } from './AdvancedAnalytics';
+export { CustomReportBuilder } from './CustomReportBuilder';
+export * from './gamification';

@@ -1,0 +1,460 @@
+-- ConnectIQ CRM Schema v3 Implementation (Adjusted)
+-- Create only the missing tables since some already exist
+
+-- Create custom types and enums (only if they don't exist)
+DO $$ BEGIN
+    CREATE TYPE public.company_type AS ENUM ('HRO', 'Staffing', 'PEO', 'LMS', 'Consulting', 'Other');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE public.company_status AS ENUM ('lead', 'prospect', 'client', 'inactive');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE public.opportunity_stage AS ENUM ('lead', 'prospect', 'assessment', 'proposal_sent', 'verbal', 'won', 'lost');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE public.proposal_status AS ENUM ('draft', 'under_review', 'sent', 'signed', 'rejected');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE public.task_status AS ENUM ('to_do', 'in_progress', 'completed', 'cancelled');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE public.task_priority AS ENUM ('low', 'medium', 'high', 'urgent');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE public.product_line AS ENUM ('HRO', 'LMS', 'Staffing', 'Consulting', 'PEO', 'Other');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+-- Create the core companies table (CRM version)
+CREATE TABLE IF NOT EXISTS public.crm_companies (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    type public.company_type DEFAULT 'Other',
+    status public.company_status DEFAULT 'lead',
+    risk_score INTEGER CHECK (risk_score >= 0 AND risk_score <= 100),
+    business_description TEXT,
+    assigned_rep_id UUID,
+    
+    -- Contact information
+    email TEXT,
+    phone TEXT,
+    website TEXT,
+    
+    -- Address information
+    address_line1 TEXT,
+    address_line2 TEXT,
+    city TEXT,
+    state TEXT,
+    postal_code TEXT,
+    country TEXT DEFAULT 'US',
+    
+    -- Business details
+    industry TEXT,
+    employee_count INTEGER,
+    annual_revenue DECIMAL(15,2),
+    
+    -- CRM tracking
+    lead_source TEXT,
+    last_activity_date TIMESTAMP WITH TIME ZONE,
+    next_follow_up_date TIMESTAMP WITH TIME ZONE,
+    
+    -- Metadata
+    notes TEXT,
+    tags TEXT[],
+    custom_fields JSONB DEFAULT '{}',
+    
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
+-- Create enhanced contacts table (CRM version)
+CREATE TABLE IF NOT EXISTS public.crm_contacts (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    company_id UUID NOT NULL REFERENCES public.crm_companies(id) ON DELETE CASCADE,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    email TEXT,
+    phone TEXT,
+    mobile_phone TEXT,
+    title TEXT,
+    department TEXT,
+    is_primary_contact BOOLEAN DEFAULT false,
+    
+    -- Additional contact info
+    linkedin_url TEXT,
+    direct_line TEXT,
+    assistant_name TEXT,
+    assistant_phone TEXT,
+    
+    -- Communication preferences
+    preferred_contact_method TEXT DEFAULT 'email',
+    timezone TEXT,
+    
+    -- Status tracking
+    is_active BOOLEAN DEFAULT true,
+    last_contacted_at TIMESTAMP WITH TIME ZONE,
+    
+    -- Metadata
+    notes TEXT,
+    tags TEXT[],
+    custom_fields JSONB DEFAULT '{}',
+    
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
+-- Create opportunities table (enhanced deals)
+CREATE TABLE IF NOT EXISTS public.crm_opportunities (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    company_id UUID NOT NULL REFERENCES public.crm_companies(id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    product_line public.product_line DEFAULT 'Other',
+    deal_value DECIMAL(15,2),
+    close_probability INTEGER CHECK (close_probability >= 0 AND close_probability <= 100),
+    forecast_close_date DATE,
+    stage public.opportunity_stage DEFAULT 'lead',
+    assigned_rep_id UUID,
+    
+    -- Linked entities
+    risk_assessment_id UUID,
+    proposal_id UUID,
+    
+    -- Sales tracking
+    lead_source TEXT,
+    competitors TEXT[],
+    decision_criteria TEXT,
+    decision_makers UUID[], -- Array of contact IDs
+    
+    -- Timeline tracking
+    last_activity_date TIMESTAMP WITH TIME ZONE,
+    next_follow_up_date TIMESTAMP WITH TIME ZONE,
+    stage_updated_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    
+    -- SPIN methodology tracking
+    spin_completion_score INTEGER DEFAULT 0 CHECK (spin_completion_score >= 0 AND spin_completion_score <= 100),
+    
+    -- Sales process
+    discovery_completed BOOLEAN DEFAULT false,
+    demo_completed BOOLEAN DEFAULT false,
+    proposal_sent BOOLEAN DEFAULT false,
+    contract_sent BOOLEAN DEFAULT false,
+    
+    -- Loss tracking
+    loss_reason TEXT,
+    loss_reason_detail TEXT,
+    competitor_won TEXT,
+    
+    -- Metadata
+    notes TEXT,
+    tags TEXT[],
+    custom_fields JSONB DEFAULT '{}',
+    
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
+-- Create SPIN contents table
+CREATE TABLE IF NOT EXISTS public.crm_spin_contents (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    opportunity_id UUID NOT NULL REFERENCES public.crm_opportunities(id) ON DELETE CASCADE,
+    
+    -- SPIN methodology fields
+    situation TEXT, -- Current situation analysis
+    problem TEXT,   -- Problems identified
+    implication TEXT, -- Implications of problems
+    need_payoff TEXT, -- Need-payoff questions and responses
+    
+    -- Additional SPIN tracking
+    situation_score INTEGER DEFAULT 0 CHECK (situation_score >= 0 AND situation_score <= 10),
+    problem_score INTEGER DEFAULT 0 CHECK (problem_score >= 0 AND problem_score <= 10),
+    implication_score INTEGER DEFAULT 0 CHECK (implication_score >= 0 AND implication_score <= 10),
+    need_payoff_score INTEGER DEFAULT 0 CHECK (need_payoff_score >= 0 AND need_payoff_score <= 10),
+    
+    -- Questions and insights
+    key_questions JSONB DEFAULT '[]',
+    insights_discovered JSONB DEFAULT '[]',
+    pain_points JSONB DEFAULT '[]',
+    value_propositions JSONB DEFAULT '[]',
+    
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
+-- Create risk assessments table
+CREATE TABLE IF NOT EXISTS public.crm_risk_assessments (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    company_id UUID NOT NULL REFERENCES public.crm_companies(id) ON DELETE CASCADE,
+    opportunity_id UUID REFERENCES public.crm_opportunities(id) ON DELETE SET NULL,
+    
+    -- Assessment details
+    assessment_type TEXT DEFAULT 'standard',
+    score INTEGER NOT NULL CHECK (score >= 0 AND score <= 100),
+    risk_level TEXT GENERATED ALWAYS AS (
+        CASE 
+            WHEN score >= 80 THEN 'Low'
+            WHEN score >= 60 THEN 'Medium'
+            WHEN score >= 40 THEN 'High'
+            ELSE 'Critical'
+        END
+    ) STORED,
+    
+    -- Completion tracking
+    completed_by UUID, -- Can be user_id or contact_id
+    completed_by_type TEXT DEFAULT 'user', -- 'user' or 'contact'
+    completed_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    
+    -- Assessment data
+    results_json JSONB NOT NULL DEFAULT '{}',
+    recommendations JSONB DEFAULT '[]',
+    action_items JSONB DEFAULT '[]',
+    
+    -- Follow-up
+    requires_follow_up BOOLEAN DEFAULT false,
+    follow_up_date DATE,
+    follow_up_notes TEXT,
+    
+    -- Metadata
+    version TEXT DEFAULT '1.0',
+    assessment_url TEXT,
+    
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
+-- Create enhanced proposals table (CRM version)
+CREATE TABLE IF NOT EXISTS public.crm_proposals (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    company_id UUID NOT NULL REFERENCES public.crm_companies(id) ON DELETE CASCADE,
+    opportunity_id UUID REFERENCES public.crm_opportunities(id) ON DELETE SET NULL,
+    
+    -- Proposal details
+    title TEXT NOT NULL,
+    version_number INTEGER DEFAULT 1,
+    status public.proposal_status DEFAULT 'draft',
+    
+    -- Document management
+    pdf_url TEXT,
+    document_key TEXT, -- For PropGEN integration
+    template_used TEXT,
+    
+    -- Proposal content
+    executive_summary TEXT,
+    proposed_solution TEXT,
+    pricing_details JSONB DEFAULT '{}',
+    terms_conditions TEXT,
+    
+    -- Tracking
+    created_by UUID NOT NULL,
+    sent_at TIMESTAMP WITH TIME ZONE,
+    viewed_at TIMESTAMP WITH TIME ZONE,
+    last_viewed_at TIMESTAMP WITH TIME ZONE,
+    view_count INTEGER DEFAULT 0,
+    
+    -- Client interaction
+    client_feedback TEXT,
+    feedback_received_at TIMESTAMP WITH TIME ZONE,
+    signed_at TIMESTAMP WITH TIME ZONE,
+    signed_by_contact_id UUID,
+    
+    -- Validity
+    valid_until DATE,
+    is_expired BOOLEAN GENERATED ALWAYS AS (valid_until < CURRENT_DATE) STORED,
+    
+    -- Metadata
+    notes TEXT,
+    tags TEXT[],
+    custom_fields JSONB DEFAULT '{}',
+    
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
+-- Add foreign key constraints for opportunities
+ALTER TABLE public.crm_opportunities 
+ADD CONSTRAINT IF NOT EXISTS fk_crm_opportunities_risk_assessment 
+FOREIGN KEY (risk_assessment_id) REFERENCES public.crm_risk_assessments(id) ON DELETE SET NULL;
+
+ALTER TABLE public.crm_opportunities 
+ADD CONSTRAINT IF NOT EXISTS fk_crm_opportunities_proposal 
+FOREIGN KEY (proposal_id) REFERENCES public.crm_proposals(id) ON DELETE SET NULL;
+
+-- Create automation rules table
+CREATE TABLE IF NOT EXISTS public.crm_automation_rules (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    description TEXT,
+    
+    -- Rule configuration
+    trigger_event TEXT NOT NULL, -- e.g., 'stage_change', 'no_activity', 'task_overdue'
+    trigger_conditions JSONB NOT NULL DEFAULT '{}', -- JSON logic for when to trigger
+    
+    -- Actions configuration
+    actions_json JSONB NOT NULL DEFAULT '[]', -- Array of actions to perform
+    
+    -- Rule settings
+    is_enabled BOOLEAN DEFAULT true,
+    execution_order INTEGER DEFAULT 0,
+    
+    -- Targeting
+    applies_to_all_companies BOOLEAN DEFAULT true,
+    target_company_ids UUID[], -- Specific companies if not all
+    target_user_ids UUID[], -- Specific users if not all
+    
+    -- Execution tracking
+    last_executed_at TIMESTAMP WITH TIME ZONE,
+    execution_count INTEGER DEFAULT 0,
+    error_count INTEGER DEFAULT 0,
+    last_error TEXT,
+    
+    -- Management
+    created_by UUID NOT NULL,
+    
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
+-- Create activity log table for audit trail
+CREATE TABLE IF NOT EXISTS public.crm_activity_log (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    
+    -- Entity tracking
+    entity_type TEXT NOT NULL, -- 'crm_companies', 'crm_contacts', 'crm_opportunities', etc.
+    entity_id UUID NOT NULL,
+    
+    -- Activity details
+    activity_type TEXT NOT NULL, -- 'created', 'updated', 'deleted', 'stage_changed', etc.
+    description TEXT NOT NULL,
+    
+    -- Change tracking
+    old_values JSONB,
+    new_values JSONB,
+    field_changes TEXT[],
+    
+    -- User tracking
+    performed_by UUID,
+    performed_by_type TEXT DEFAULT 'user', -- 'user', 'system', 'automation'
+    
+    -- Context
+    source TEXT DEFAULT 'web', -- 'web', 'api', 'automation', 'import'
+    ip_address INET,
+    user_agent TEXT,
+    
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
+-- Create indexes for performance
+CREATE INDEX IF NOT EXISTS idx_crm_companies_status ON public.crm_companies(status);
+CREATE INDEX IF NOT EXISTS idx_crm_companies_type ON public.crm_companies(type);
+CREATE INDEX IF NOT EXISTS idx_crm_companies_assigned_rep ON public.crm_companies(assigned_rep_id);
+
+CREATE INDEX IF NOT EXISTS idx_crm_contacts_company_id ON public.crm_contacts(company_id);
+CREATE INDEX IF NOT EXISTS idx_crm_contacts_email ON public.crm_contacts(email);
+CREATE INDEX IF NOT EXISTS idx_crm_contacts_is_primary ON public.crm_contacts(is_primary_contact);
+CREATE INDEX IF NOT EXISTS idx_crm_contacts_name ON public.crm_contacts(first_name, last_name);
+
+CREATE INDEX IF NOT EXISTS idx_crm_opportunities_company_id ON public.crm_opportunities(company_id);
+CREATE INDEX IF NOT EXISTS idx_crm_opportunities_stage ON public.crm_opportunities(stage);
+CREATE INDEX IF NOT EXISTS idx_crm_opportunities_assigned_rep ON public.crm_opportunities(assigned_rep_id);
+CREATE INDEX IF NOT EXISTS idx_crm_opportunities_close_date ON public.crm_opportunities(forecast_close_date);
+CREATE INDEX IF NOT EXISTS idx_crm_opportunities_value ON public.crm_opportunities(deal_value);
+
+CREATE INDEX IF NOT EXISTS idx_crm_spin_contents_opportunity_id ON public.crm_spin_contents(opportunity_id);
+
+CREATE INDEX IF NOT EXISTS idx_crm_risk_assessments_company_id ON public.crm_risk_assessments(company_id);
+CREATE INDEX IF NOT EXISTS idx_crm_risk_assessments_opportunity_id ON public.crm_risk_assessments(opportunity_id);
+CREATE INDEX IF NOT EXISTS idx_crm_risk_assessments_score ON public.crm_risk_assessments(score);
+
+CREATE INDEX IF NOT EXISTS idx_crm_proposals_company_id ON public.crm_proposals(company_id);
+CREATE INDEX IF NOT EXISTS idx_crm_proposals_opportunity_id ON public.crm_proposals(opportunity_id);
+CREATE INDEX IF NOT EXISTS idx_crm_proposals_status ON public.crm_proposals(status);
+CREATE INDEX IF NOT EXISTS idx_crm_proposals_created_by ON public.crm_proposals(created_by);
+
+CREATE INDEX IF NOT EXISTS idx_crm_automation_rules_enabled ON public.crm_automation_rules(is_enabled);
+CREATE INDEX IF NOT EXISTS idx_crm_automation_rules_trigger ON public.crm_automation_rules(trigger_event);
+
+CREATE INDEX IF NOT EXISTS idx_crm_activity_log_entity ON public.crm_activity_log(entity_type, entity_id);
+CREATE INDEX IF NOT EXISTS idx_crm_activity_log_created_at ON public.crm_activity_log(created_at);
+CREATE INDEX IF NOT EXISTS idx_crm_activity_log_performed_by ON public.crm_activity_log(performed_by);
+
+-- Create updated_at triggers
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = now();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER IF NOT EXISTS update_crm_companies_updated_at
+    BEFORE UPDATE ON public.crm_companies
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER IF NOT EXISTS update_crm_contacts_updated_at
+    BEFORE UPDATE ON public.crm_contacts
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER IF NOT EXISTS update_crm_opportunities_updated_at
+    BEFORE UPDATE ON public.crm_opportunities
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER IF NOT EXISTS update_crm_spin_contents_updated_at
+    BEFORE UPDATE ON public.crm_spin_contents
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER IF NOT EXISTS update_crm_risk_assessments_updated_at
+    BEFORE UPDATE ON public.crm_risk_assessments
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER IF NOT EXISTS update_crm_proposals_updated_at
+    BEFORE UPDATE ON public.crm_proposals
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER IF NOT EXISTS update_crm_automation_rules_updated_at
+    BEFORE UPDATE ON public.crm_automation_rules
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+-- Enable realtime for all CRM tables
+ALTER TABLE public.crm_companies REPLICA IDENTITY FULL;
+ALTER TABLE public.crm_contacts REPLICA IDENTITY FULL;
+ALTER TABLE public.crm_opportunities REPLICA IDENTITY FULL;
+ALTER TABLE public.crm_spin_contents REPLICA IDENTITY FULL;
+ALTER TABLE public.crm_risk_assessments REPLICA IDENTITY FULL;
+ALTER TABLE public.crm_proposals REPLICA IDENTITY FULL;
+ALTER TABLE public.crm_automation_rules REPLICA IDENTITY FULL;
+ALTER TABLE public.crm_activity_log REPLICA IDENTITY FULL;
+
+-- Add tables to realtime publication
+ALTER PUBLICATION supabase_realtime ADD TABLE public.crm_companies;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.crm_contacts;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.crm_opportunities;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.crm_spin_contents;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.crm_risk_assessments;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.crm_proposals;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.crm_automation_rules;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.crm_activity_log;
